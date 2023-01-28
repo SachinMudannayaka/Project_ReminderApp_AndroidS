@@ -2,10 +2,14 @@ package com.pmadcode15.myapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DBHandler extends SQLiteOpenHelper {
 //Database variables
@@ -62,5 +66,37 @@ public class DBHandler extends SQLiteOpenHelper {
 
         sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
         sqLiteDatabase.close();
+    }
+
+    public int countReminder(){
+        SQLiteDatabase sqLiteDatabase=getReadableDatabase();
+        String query="SELECT * FROM "+TABLE_NAME;
+        Cursor cursor=sqLiteDatabase.rawQuery(query,null);
+        return cursor.getCount();
+    }
+    //to get all reminders
+public List<ReminderModel>getAllReminders()
+
+    {
+        List<ReminderModel> reminderModels = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_NAME;
+
+        Cursor cursor = sqLiteDatabase.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            do {
+                ReminderModel reminderModel = new ReminderModel();
+                reminderModel.setId(cursor.getInt(0));
+                reminderModel.setTitle(cursor.getString(1));
+                reminderModel.setDescription(cursor.getString(2));
+                reminderModel.setStarted(cursor.getLong(3));
+                reminderModel.setFinished(cursor.getLong(4));
+
+                reminderModels.add(reminderModel);
+            }
+            while (cursor.moveToNext());
+
+        }
+        return reminderModels;
     }
 }

@@ -3,6 +3,7 @@ package com.pmadcode15.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,8 @@ public class AddReminder extends AppCompatActivity {
 
                 ReminderModel remMode=new ReminderModel(usertitle,userdescription,started,0);
                 dbHandler.AddReminder(remMode);
+
+                startActivity(new Intent(context,MainActivity.class));
             }
         });
 

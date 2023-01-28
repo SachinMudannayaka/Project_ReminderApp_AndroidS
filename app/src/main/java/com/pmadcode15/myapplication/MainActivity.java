@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView count;
     private Context context;
 
+    private DBHandler dbHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,10 @@ public class MainActivity extends AppCompatActivity {
         listView=findViewById(R.id.reminderList);
         count=findViewById(R.id.todocount);
         context=this;
+        dbHandler=new DBHandler(this);
+
+        int countReminder= dbHandler.countReminder();
+        count.setText("YOU HAVE "+countReminder+" REMINDERS");
 
       add.setOnClickListener(new View.OnClickListener() {
           @Override
