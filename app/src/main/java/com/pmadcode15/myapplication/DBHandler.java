@@ -106,4 +106,37 @@ public List<ReminderModel>getAllReminders()
         sqLiteDatabase.delete(TABLE_NAME,ID+ " =?",new String[]{String.valueOf(id)});
         sqLiteDatabase.close();
     }
+
+
+    public ReminderModel getSingleReminder(int id){
+        SQLiteDatabase sqLiteDatabase=getWritableDatabase();
+        Cursor cursor=sqLiteDatabase.query(TABLE_NAME,new String[]{ID,TITLE,DESCRIPTION,STARTED,FINISHED},ID+" =?",new String[]{String.valueOf(id)},null,null,null);
+        ReminderModel reminderModel;
+        if(cursor!=null){
+ cursor.moveToFirst();
+            reminderModel=new ReminderModel(
+                   cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getLong(3),
+                    cursor.getLong(4)
+
+            );
+            return reminderModel;
+        }
+        return null;
+    }
+
+    public int updateSingleReminder(ReminderModel reminderModel) {
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TITLE, reminderModel.getTitle());
+        contentValues.put(DESCRIPTION, reminderModel.getDescription());
+        contentValues.put(STARTED, reminderModel.getStarted());
+        contentValues.put(FINISHED, reminderModel.getFinished());
+
+        int Status = sqLiteDatabase.update(TABLE_NAME, contentValues, ID + " =?", new String[]{String.valueOf(reminderModel.getId())});
+     sqLiteDatabase.close();
+     return Status;
+    }
 }

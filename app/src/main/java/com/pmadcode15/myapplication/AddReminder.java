@@ -29,7 +29,7 @@ public class AddReminder extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String usertitle=title.getText().toString();
-                String userdescription=title.getText().toString();
+                String userdescription=description.getText().toString();
                 long started=System.currentTimeMillis();
 
                 ReminderModel remMode=new ReminderModel(usertitle,userdescription,started,0);

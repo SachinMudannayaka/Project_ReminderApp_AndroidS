@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void onItemClick(AdapterView<?>parent,View view ,int position,long id){
 
-            ReminderModel reminderModel=Reminders.get(position);
+            final ReminderModel reminderModel=Reminders.get(position);
 
 
             AlertDialog.Builder builder=new AlertDialog.Builder(context);
@@ -85,7 +85,10 @@ public class MainActivity extends AppCompatActivity {
           builder.setNeutralButton("Update", new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialogInterface, int i) {
-                  startActivity(new Intent(context,EditReminder.class));
+                 Intent intent=new Intent(context,EditReminder.class);
+                 intent.putExtra("id",String.valueOf(reminderModel.getId()));
+                 startActivity(intent);
+
               }
           });
           builder.show();
