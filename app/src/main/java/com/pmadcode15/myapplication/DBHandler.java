@@ -99,4 +99,11 @@ public List<ReminderModel>getAllReminders()
         }
         return reminderModels;
     }
+
+    //Delete method
+    public void deleteReminder(int id){
+        SQLiteDatabase sqLiteDatabase= getWritableDatabase();
+        sqLiteDatabase.delete(TABLE_NAME,ID+ " =?",new String[]{String.valueOf(id)});
+        sqLiteDatabase.close();
+    }
 }

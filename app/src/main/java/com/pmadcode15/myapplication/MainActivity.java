@@ -56,21 +56,28 @@ public class MainActivity extends AppCompatActivity {
 
       listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
+
         public void onItemClick(AdapterView<?>parent,View view ,int position,long id){
+
+            ReminderModel reminderModel=Reminders.get(position);
+
+
             AlertDialog.Builder builder=new AlertDialog.Builder(context);
-          builder.setTitle("TEST");
-          builder.setMessage("Mseeage");
+          builder.setTitle(reminderModel.getTitle());
+          builder.setMessage(reminderModel.getDescription());
           builder.show();
           builder.setPositiveButton("Finished",new DialogInterface.OnClickListener(){
 
               public void onClick(DialogInterface dialog,int which){
-
+              startActivity(new Intent(context,MainActivity.class));
               }
           });
 
           builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialogInterface, int i) {
+                  dbHandler.deleteReminder(reminderModel.getId());
+                  startActivity(new Intent(context,MainActivity.class));
 
               }
           });
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
           builder.setNeutralButton("Update", new DialogInterface.OnClickListener() {
               @Override
               public void onClick(DialogInterface dialogInterface, int i) {
-
+                  startActivity(new Intent(context,EditReminder.class));
               }
           });
           builder.show();
