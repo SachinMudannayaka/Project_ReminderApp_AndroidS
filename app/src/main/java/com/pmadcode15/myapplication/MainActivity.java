@@ -1,11 +1,14 @@
 package com.pmadcode15.myapplication;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -51,6 +54,37 @@ public class MainActivity extends AppCompatActivity {
           }
       });
 
+      listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+        public void onItemClick(AdapterView<?>parent,View view ,int position,long id){
+            AlertDialog.Builder builder=new AlertDialog.Builder(context);
+          builder.setTitle("TEST");
+          builder.setMessage("Mseeage");
+          builder.show();
+          builder.setPositiveButton("Finished",new DialogInterface.OnClickListener(){
+
+              public void onClick(DialogInterface dialog,int which){
+
+              }
+          });
+
+          builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+
+              }
+          });
+
+          builder.setNeutralButton("Update", new DialogInterface.OnClickListener() {
+              @Override
+              public void onClick(DialogInterface dialogInterface, int i) {
+
+              }
+          });
+          builder.show();
+
+        }
+    });
 
     }
 }
