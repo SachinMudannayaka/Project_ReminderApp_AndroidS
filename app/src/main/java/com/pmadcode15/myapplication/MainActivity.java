@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private Button add;
     private ListView listView;
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private Context context;
 
     private DBHandler dbHandler;
+
+    private List<ReminderModel>Reminders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
         count=findViewById(R.id.todocount);
         context=this;
         dbHandler=new DBHandler(this);
+        Reminders=new ArrayList<>();
+
+        Reminders=dbHandler.getAllReminders();
+
+        ReminderAdapter adapter=new ReminderAdapter(context,R.layout.single_reminder,Reminders);
+        listView.setAdapter(adapter);
+
 
         int countReminder= dbHandler.countReminder();
         count.setText("YOU HAVE "+countReminder+" REMINDERS");
